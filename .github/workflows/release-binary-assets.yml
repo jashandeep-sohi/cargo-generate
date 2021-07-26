@@ -58,12 +58,7 @@ jobs:
           tar -czvf "$filename" README.md LICENSE-MIT LICENSE-APACHE -C "target/$TARGET/release" "${{ matrix.binName }}"
           echo "::set-output name=filename::$filename"
       - name: Upload Archive
-        uses: ncipollo/release-action@v1
+        uses: softprops/action-gh-release@f5d13571ca067a9b79849c5851527db539b265ad
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-          allowUpdates: true
-          artifactErrorsFailBuild: true
-          artifacts: ${{ steps.archive.outputs.filename }}
-          artifactContentType: application/octet-stream
-          omitBodyDuringUpdate: true
-          omitNameDuringUpdate: true
+          files: ${{ steps.archive.outputs.filename }}
